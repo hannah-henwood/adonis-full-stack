@@ -50,8 +50,8 @@ Use the Bootstrap navbar to access Products, Categories, Login/Logout, and CRUD 
 ## Submission Details
 
 GitHub: https://github.com/hannah-henwood/adonis-full-stack
-Video: A 6-minute MP4 presentation is provided separately via a Google Drive link, covering introduction, feature demo, technical explanation, and conclusion.
 Exclusions: The node_modules folder is not included in the submission zip.
+Unfortunately, I was unable to record the video required.
 
 ## Notes
 - As I was unable to complete the Authentication & Authorisation section, there is no restriction on what the user is able to do, but the application, as it is, serves as a prototype of what could be given the time and resources.
