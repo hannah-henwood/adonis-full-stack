@@ -1,0 +1,43 @@
+@component('layouts/main')
+
+@slot('main')
+ <h2 class="mb-4"><i class="fas fa-info-circle"></i> About This Blog</h2>
+
+ <p class="lead">This blog application is built as part of a lab series on Adonis.js v6.</p>
+
+ <div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-code"></i> Technologies Used</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Adonis.js v6 - A full-featured MVC framework for Node.js</li>
+                    <li><i class="fas fa-check text-success"></i> Edge.js - The templating engine for Adonis.js</li>
+                    <li><i class="fas fa-check text-success"></i> Bootstrap - For responsive styling</li>
+                    <li><i class="fas fa-check text-success"></i> SQLite - A lightweight database (to be implemented in Lab 3)</li>
+                    <li><i class="fas fa-check text-success"></i> Font Awesome - For Icons and visual elements</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-graduation-cap"></i> Learning Goals</h5>
+                <p>Throughout this lab series, you will learn: </p>
+                <ul>
+                   <li>Setting up an Adonis.js project with proper structures</li>
+                   <li>Implementing routes and controllers</li>
+                   <li>Working with database using Lucid ORM</li>
+                   <li>Implementing authentication and authorization</li>
+                   <li>Building and testing RESTful APIs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+ </div>
+    
+@end
+    
+@end

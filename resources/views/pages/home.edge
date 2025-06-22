@@ -1,0 +1,123 @@
+@component('layouts/main', { categories, filter})
+  @slot('main')
+
+    <!-- Product Grid -->
+    <div class="row">
+      @each(product in products)
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            @if(product.image_path)
+              <img src="/uploads/{{ product.image_path }}" class="card-img-top" alt="{{ product.name }}" style="height: 180px; object-fit: cover;">
+            @endif
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ product.category?.name || 'Uncategorized' }}</h6>
+              <p class="card-text">{{ product.description?.substring(0, 100) }}{{ product.description?.length > 100 ? '...' : '' }}</p>
+              <p class="text-primary fw-bold mb-1">Price: ${{ product.price }}</p>
+              <a href="/products/{{ product.id }}" class="btn btn-outline-primary btn-sm">View Product</a>
+            </div>
+            @if(auth.user)
+              <div class="card-footer d-flex justify-content-between">
+                <a href="/products/{{ product.id }}/edit" class="btn btn-sm btn-outline-secondary">
+                  <i class="fas fa-edit"></i> Edit
+                </a>
+                <form action="/products/{{ product.id }}?_method=DELETE" method="POST" class="d-inline">
+                  {{ csrfField() }}
+                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this product?')">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </form>
+              </div>
+            @endif
+          </div>
+        </div>
+      @else
+        <div class="col-12">
+          <div class="alert alert-info">No products matched your search. Try a different keyword or category.</div>
+        </div>
+      @end
+    </div>
+
+    <!-- Pagination -->
+    @if(meta?.lastPage > 1)
+      <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+          @if(meta.previousPageUrl)
+            <li class="page-item m-2"><a class="page-link" href="{{ meta.previousPageUrl }}">Previous</a></li>
+          @endif
+          {{-- @for(i in 0..(meta.lastPage - 1)) --}}
+            {{-- <li class="page-item {{ meta.currentPage == i + 1 ? 'active' : '' }}">
+  <a class="page-link" href="/?page={{ i + 1 }}">{{ i + 1 }}</a>
+</li> --}}
+          @end
+          @if(meta.nextPageUrl)
+            <li class="page-item m-2"><a class="page-link" href="{{ meta.nextPageUrl }}">Next</a></li>
+          @endif
+        </ul>
+      </nav>
+  
+  @endslot
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- @component('layouts/main')
+
+@slot('main')
+  <div class="jumbotron p-4 p-md-5 rounded bg-light">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4">Welcome to Our Blog!</h1>
+      <p class="lead my-3">This is a simple blog application built with Adonis.js v6.
+        You'll be enhancing this application thoughout the course with database integration, authentication, and API features.
+      </p>
+      <p class="lead mb-0"><a href="/products" class="text-decoration-none">Browse all products <li class="fas fa-arrow-right"></li></a></p>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Web development</strong>
+          <h3 class="mb-0">Getting Started with Adonis.js</h3>
+          <div class="mb-1 text-muted">April 1,2025</div>
+          <p class="card-text mb-auto">Learn how to set up your first Adonis.js application and understand the basics of the framework.</p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success">Design</strong>
+          <h3 class="mb-0">Bootstrap Tips and Tricks</h3>
+          <div class="mb-1 text-muted">March 27, 2025</div>
+          <p class="mb-auto">Explore some advanced Bootstrap techniques to make your web applications look professional.</p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+      </div>
+    </div>
+  </div>  
+@end
+ 
+@end --}}

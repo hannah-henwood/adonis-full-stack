@@ -1,0 +1,29 @@
+/* body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+} */
+
+.blog-header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+
+.blog-title {
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.blog-description {
+    color: #999;
+}
+
+.blog-footer {
+    padding: 40px 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 40px;
+}
