@@ -1,11 +1,9 @@
-// import type { HttpContext } from '@adonisjs/core/http'
-// app/controllers/categories_controller.ts
 import { HttpContext } from '@adonisjs/core/http'
 import { getAllCategories, getCategoryById, addCategory, updateCategory, deleteCategory } from '#data/categories'
 
 export default class CategoriesController {
   /**
-   * Show all categories (admin view or for public filtering)
+   * Show all categories
    */
 async index({ view }: HttpContext) {
   const categories = getAllCategories().map((c) => ({
@@ -49,7 +47,6 @@ async index({ view }: HttpContext) {
             categories,
             category
         })
-    // return view.render('pages/categories/edit', { category })
   }
 
   /**

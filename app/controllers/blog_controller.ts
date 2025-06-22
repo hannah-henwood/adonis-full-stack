@@ -1,6 +1,6 @@
 import { HttpContext } from '@adonisjs/core/http'
 import { getAllProducts } from '#data/products'
-import { getAllCategories } from '#data/categories' // Assuming you have this helper
+import { getAllCategories } from '#data/categories'
 
 export default class BlogController {
   private paginate<T>(items: T[], page: number, perPage: number) {
@@ -22,38 +22,7 @@ export default class BlogController {
     }
   }
 
-//   public async home({ view, request }: HttpContext) {
-//     const search = request.input('search')?.toLowerCase() || ''
-//     const categoryId = request.input('category_id')
-//     const page = Number(request.input('page') || 1)
-//     const perPage = 6
 
-//     let products = getAllProducts()
-
-//     if (search) {
-//       products = products.filter(p => p.name.toLowerCase().includes(search))
-//     }
-
-//     if (categoryId) {
-//       products = products.filter(p => p.category_id === Number(categoryId))
-//     }
-
-//    const categories = getAllCategories()
-//     const { data, meta } = this.paginate(products, page, perPage)
-
-//     return view.render('pages/home', {
-//       title: 'Welcome',
-//       products: data,
-//       categories,
-//       filter: { search, category_id: categoryId },
-//       meta
-//     })
-//   }
-
-//   public async about({ view }: HttpContext) {
-//     return view.render('pages/about', { title: 'About Us' })
-//   }
-// }
 
 public async home({ view, request }: HttpContext) {
   const rawPage = request.input('page')
@@ -89,29 +58,4 @@ public async home({ view, request }: HttpContext) {
     filter: { search, category_id: categoryId }
   })
 }
-
-
-// import { HttpContext } from '@adonisjs/core/http'
-
-
-// export default class BlogController {
-//   // Helper function to create an array of numbers
-//   private range(start: number, end: number) {
-//     return Array.from({ length: end - start + 1 }, (_, i) => start + i )
-//   }
-
-//   public async home({ view }: HttpContext) {
-//     return view.render('pages/home', { title: 'Adonis Blog - Home' })
-//   }
-
-//   public async posts({ view }: HttpContext) {
-//     return view.render('pages/posts/index', {
-//         title: 'Adonis Blog - All Posts',
-//         range: this.range
-//     })
-//   }
-
-//   public async about ({ view }: HttpContext) {
-//     return view.render('pages/about', { title: 'Adonis Blog - About' })
-//   }
 }

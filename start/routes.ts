@@ -16,7 +16,6 @@ const ProductsController = () => import('#controllers/products_controller')
 const CategoriesController = () => import('#controllers/categories_controller')
 
 router.get('/', [BlogController, 'home'])
-// router.get('/about', [BlogController, 'about'])
 
 // Post Routes
 router.resource('products', ProductsController)

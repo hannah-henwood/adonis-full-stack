@@ -1,12 +1,10 @@
-// contracts/category.ts
 export interface Category {
   id: number
   name: string
   timestamps: Date
 }
 
-// // data/category.ts
-// import { Category } from '#contracts/category'
+
 
 let categories: Category[] = [
   { id: 1, name: 'Electronics', timestamps: new Date('2025-01-25') },

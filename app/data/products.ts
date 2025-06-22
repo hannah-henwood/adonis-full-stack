@@ -1,5 +1,3 @@
-// import { DateTime } from "luxon"
-
 export interface Product {
   id: number
   name: string
@@ -10,37 +8,7 @@ export interface Product {
   timestamps: Date
 }
 
-// Simulated blog posts data store
-// let products: Product[] = [
-//   {
-//     id: 1,
-//     name: 'Getting Started with Adonis.js v6',
-//     description: 'Adonis.js is a fully-featured web framework for Node.js. It includes everything you need from a web framework, including a router, ORM, authentication system, and more.',
-//     price: 'John Doe',
-//     image_path: "hdhd",
-//     category_id: 1,
-//     timestamps: new Date('2025-05-01')
-//   },
-//   {
-//     id: 2,
-//     name: 'Understanding Edge.js Templates',
-//     description: 'Edge.js is the templating engine used by Adonis.js. It provides a clean syntax for rendering HTML views with dynamic data.',
-//     price: 'Jane Smith',
-//     image_path: "hdhdh",
-//     category_id: 3,
-//     timestamps: new Date('2025-05-03')
-//   },
-//   {
-//     id: 3,
-//     name: 'Working with Controllers in Adonis.js',
-//     description: 'Controllers in Adonis.js help you organize your application logic. They handle incoming requests and return responses.',
-//     price: 'Alex Johnson',
-//     image_path: "hshs",
-//     category_id: 2,
-//     timestamps: new Date('2025-05-05')
-//   }
-// ]
-
+// Mock Product data
 let products: Product[] = [
   {
     id: 1,
@@ -197,12 +165,7 @@ export function updateProduct(id: number, data: Partial<Omit<Product, 'id' | 'cr
   return products[index]
 }
 
-// Function to delete a post
-// export function deleteProduct(id: number): boolean {
-//   const initialLength = products.length
-//   products = products.filter(product => product.id !== id)
-//   return products.length < initialLength
-// }
+
 export function deleteProduct(id: number): boolean {
   const index = products.findIndex(p => p.id === id)
   if (index === -1) return false
