@@ -13,7 +13,7 @@ export default class ProductsController {
         const search = request.input('search') as string | undefined
         let products = getAllProducts()
 
-        // Filter by author if provided
+        // Filter by name if provided
         if (name) {
             products = products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()))
         }
