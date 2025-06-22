@@ -1,0 +1,32 @@
+@component('layouts/main', { categories, filter})
+  @slot('main')
+    <div class="container mt-4">
+      <h1 class="mb-4">Category: {{ category.name }}</h1>
+
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <p><strong>ID:</strong> {{ category.id }}</p>
+          <p><strong>Name:</strong> {{ category.name }}</p>
+          <p><strong>Created:</strong> {{ category.timestamps.toLocaleDateString() }}</p>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <a href="/categories/{{ category.id }}/edit" class="btn btn-outline-secondary">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+
+        <form action="/categories/{{ category.id }}?_method=DELETE" method="POST" onsubmit="return confirm('Delete this category?')">
+          {{ csrfField() }}
+          <button type="submit" class="btn btn-outline-danger">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+
+        <a href="/categories" class="btn btn-outline-primary ms-auto">
+          <i class="fas fa-arrow-left"></i> Back to Categories
+        </a>
+      </div>
+    </div>
+  @endslot
+@endcomponent

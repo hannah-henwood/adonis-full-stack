@@ -79,6 +79,7 @@ public async home({ view, request }: HttpContext) {
 
   const { data, meta } = this.paginate(products, page, 6)
 
+  
   return view.render('pages/home', {
     title: 'Welcome',
     products: data,

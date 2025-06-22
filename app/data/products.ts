@@ -176,7 +176,7 @@ export function createProduct(post: Omit<Product, 'id' | 'created_at'>): Product
   const newProduct: Product = {
     id: products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1,
     ...post,
-    timestamps: new Date()
+    timestamps: post.timestamps ?? new Date()
   }
   
   products.push(newProduct)
@@ -198,10 +198,17 @@ export function updateProduct(id: number, data: Partial<Omit<Product, 'id' | 'cr
 }
 
 // Function to delete a post
+// export function deleteProduct(id: number): boolean {
+//   const initialLength = products.length
+//   products = products.filter(product => product.id !== id)
+//   return products.length < initialLength
+// }
 export function deleteProduct(id: number): boolean {
-  const initialLength = products.length
-  products = products.filter(product => product.id !== id)
-  return products.length < initialLength
+  const index = products.findIndex(p => p.id === id)
+  if (index === -1) return false
+
+  products.splice(index, 1)
+  return true
 }
 
 // Function to mark a post as published

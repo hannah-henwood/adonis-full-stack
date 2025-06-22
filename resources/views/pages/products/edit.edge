@@ -1,10 +1,10 @@
-@component('layouts/main')
+@component('layouts/main', { categories, filter})
   @slot('main')
     <div class="container my-5">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/products">products</a></li>
-          <li class="breadcrumb-item"><a href="/products/{{ product.id }}">{{ product.title }}</a></li>
+          <li class="breadcrumb-item"><a href="/products/{{ product.id }}">{{ product.name }}</a></li>
           <li class="breadcrumb-item active" aria-current="page">Edit</li>
         </ol>
       </nav>
@@ -14,19 +14,19 @@
           <h3 class="card-title mb-0">Edit product</h3>
         </div>
         <div class="card-body">
-          <form action="/products/{{ product.id }}?_method=PUT" method="product">
+          <form action="/products/{{ product.id }}?_method=PUT" method="POST">
             {{ csrfField() }}
             <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title" name="title" value="{{ product.title }}" required>
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" required>
             </div>
             <div class="mb-3">
-              <label for="author" class="form-label">Author</label>
-              <input type="text" class="form-control" id="author" name="author" value="{{ product.author }}" required>
+              <label for="price" class="form-label">Price</label>
+              <input type="text" class="form-control" id="price" name="price" value="{{ product.price }}" required>
             </div>
             <div class="mb-3">
-              <label for="content" class="form-label">Content</label>
-              <textarea class="form-control" id="content" name="content" rows="6" required>{{ product.content }}</textarea>
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="description" rows="6" required>{{ product.description }}</textarea>
             </div>
             <div class="d-flex justify-content-between">
               <button type="submit" class="btn btn-success">

@@ -1,9 +1,9 @@
 @component('layouts/main', { categories, filter})
   @slot('main')
     <div class="container mt-4">
-      <h1 class="mb-4">Create New Category</h1>
+      <h1 class="mb-4">Edit Category</h1>
 
-      <form action="/categories" method="POST" class="card p-4 shadow-sm">
+      <form action="/categories/{{ category.id }}?_method=PUT" method="POST" class="card p-4 shadow-sm">
         {{ csrfField() }}
 
         <div class="mb-3">
@@ -13,13 +13,13 @@
             class="form-control"
             id="name"
             name="name"
-            placeholder="e.g. Electronics, Books, Clothing"
+            value="{{ category.name }}"
             required
           >
         </div>
 
         <button type="submit" class="btn btn-primary">
-          <i class="fas fa-plus"></i> Create Category
+          <i class="fas fa-save"></i> Save Changes
         </button>
 
         <a href="/categories" class="btn btn-outline-secondary ms-2">

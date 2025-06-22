@@ -1,5 +1,6 @@
 import { HttpContext } from '@adonisjs/core/http'
 import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, publishProduct } from '#data/products'
+import { getAllCategories } from '#data/categories'
 //import { timestamps } from 'console'
 
 export default class ProductsController {
@@ -20,8 +21,12 @@ export default class ProductsController {
         if (search) {
             products = products.filter(product => product.name.toLowerCase().includes(search.toLowerCase()))
         }
-
-        return view.render('pages/products/index', { products, filter: { name, search } })
+        const categories = getAllCategories()
+        return view.render('pages/products/index', {
+            categories,
+            products
+        })
+        // return view.render('pages/products/index', { products, filter: { name, search } })
     }
 
 
@@ -76,7 +81,11 @@ export default class ProductsController {
      * Display the form to create a new product
      */
     async create({ view }: HttpContext) {
-        return view.render('pages/products/create')
+        const categories = getAllCategories()
+        return view.render('pages/products/create', {
+            categories
+        })
+
     }
 
     /**
@@ -88,14 +97,14 @@ export default class ProductsController {
         const price = request.input('price')
         const image_path = request.input('image_path')
         const category_id = request.input('category_id')
-        const timestamps = request.input('category_id')
+        const timestamps = new Date()
 
         createProduct({
             name: name as string,
             description: description as string,
             price: price as string,
             image_path: image_path as string,
-            category_id: category_id as number,
+            category_id: Number(category_id),
             timestamps: timestamps as Date
         })
 
@@ -111,8 +120,11 @@ export default class ProductsController {
         if (!product) {
             return response.redirect('/products')
         }
-
-        return view.render('pages/products/show', { product })
+        const categories = getAllCategories()
+        return view.render('pages/products/show', {
+            categories,
+            product
+        })
     }
 
     /**
@@ -124,8 +136,11 @@ export default class ProductsController {
         if (!product) {
             return response.redirect('/products')
         }
-
-        return view.render('pages/products/edit', { product })
+        const categories = getAllCategories()
+        return view.render('pages/products/edit', {
+            categories,
+            product
+        })
     }
 
     /**
@@ -138,14 +153,14 @@ export default class ProductsController {
         const price = request.input('price')
         const image_path = request.input('image_path')
         const category_id = request.input('category_id')
-        const timestamps = request.input('category_id')
+        const timestamps = new Date()
 
         updateProduct(id, {
             name: name as string,
             description: description as string,
             price: price as string,
             image_path: image_path as string,
-            category_id: category_id as number,
+            category_id: Number(category_id),
             timestamps: timestamps as Date
         })
 
