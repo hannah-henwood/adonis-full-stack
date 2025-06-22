@@ -1,6 +1,8 @@
 import { HttpContext } from '@adonisjs/core/http'
 import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, publishProduct } from '#data/products'
 import { getAllCategories } from '#data/categories'
+import app from '@adonisjs/core/services/app'
+import { cuid } from '@adonisjs/core/helpers'
 //import { timestamps } from 'console'
 
 export default class ProductsController {
@@ -92,24 +94,52 @@ export default class ProductsController {
      * Store a new product
      */
     async store({ request, response }: HttpContext) {
-        const name = request.input('name')
-        const description = request.input('description')
-        const price = request.input('price')
-        const image_path = request.input('image_path')
-        const category_id = request.input('category_id')
-        const timestamps = new Date()
+  const name = request.input('name')
+  const description = request.input('description')
+  const price = request.input('price')
+  const category_id = request.input('category_id')
+  const timestamps = new Date()
 
-        createProduct({
-            name: name as string,
-            description: description as string,
-            price: price as string,
-            image_path: image_path as string,
-            category_id: Number(category_id),
-            timestamps: timestamps as Date
-        })
+  const image = request.file('image')
+  let imagePath: string | null = null
 
-        return response.redirect('/products')
-    }
+  if (image) {
+    const fileName = `${cuid()}.${image.extname}`
+    await image.move(app.publicPath('uploads'), { name: fileName })
+    imagePath = fileName
+  }
+
+  createProduct({
+    name: name as string,
+    description: description as string,
+    price: price as string,
+    image_path: imagePath ?? '',
+    category_id: Number(category_id),
+    timestamps
+  })
+
+  return response.redirect('/products')
+}
+
+    // async store({ request, response }: HttpContext) {
+    //     const name = request.input('name')
+    //     const description = request.input('description')
+    //     const price = request.input('price')
+    //     const image_path = request.input('image_path')
+    //     const category_id = request.input('category_id')
+    //     const timestamps = new Date()
+
+    //     createProduct({
+    //         name: name as string,
+    //         description: description as string,
+    //         price: price as string,
+    //         image_path: image_path as string,
+    //         category_id: Number(category_id),
+    //         timestamps: timestamps as Date
+    //     })
+
+    //     return response.redirect('/products')
+    // }
 
     /**
      * Display a single product
@@ -147,25 +177,60 @@ export default class ProductsController {
      * Update a product
      */
     async update({ params, request, response }: HttpContext) {
-        const id = Number(params.id)
-        const name = request.input('name')
-        const description = request.input('description')
-        const price = request.input('price')
-        const image_path = request.input('image_path')
-        const category_id = request.input('category_id')
-        const timestamps = new Date()
+  const id = Number(params.id)
+ // const product = getProductById(id)
+  const name = request.input('name')
+  const description = request.input('description')
+  const price = request.input('price')
+  const category_id = request.input('category_id')
+  const timestamps = new Date()
 
-        updateProduct(id, {
-            name: name as string,
-            description: description as string,
-            price: price as string,
-            image_path: image_path as string,
-            category_id: Number(category_id),
-            timestamps: timestamps as Date
-        })
+const image = request.file('image')
+  let imagePath = request.input('existing_image_path')
 
-        return response.redirect(`/products/${id}`)
-    }
+if (image && image.tmpPath) {
+  const fileName = `${cuid()}.${image.extname}`
+  await image.move(app.publicPath('uploads'), { name: fileName })
+  imagePath = fileName
+}
+//   if (image) {
+//     const fileName = `${cuid()}.${image.extname}`
+//     await image.move(app.publicPath('uploads'), { name: fileName })
+//     imagePath = fileName
+//   }
+
+  updateProduct(id, {
+    name: name as string,
+    description: description as string,
+    price: price as string,
+    image_path: imagePath as string,
+    category_id: Number(category_id),
+    timestamps
+  })
+
+  return response.redirect(`/products/${id}`)
+}
+
+    // async update({ params, request, response }: HttpContext) {
+    //     const id = Number(params.id)
+    //     const name = request.input('name')
+    //     const description = request.input('description')
+    //     const price = request.input('price')
+    //     const image_path = request.input('image_path')
+    //     const category_id = request.input('category_id')
+    //     const timestamps = new Date()
+
+    //     updateProduct(id, {
+    //         name: name as string,
+    //         description: description as string,
+    //         price: price as string,
+    //         image_path: image_path as string,
+    //         category_id: Number(category_id),
+    //         timestamps: timestamps as Date
+    //     })
+
+    //     return response.redirect(`/products/${id}`)
+    // }
 
     /**
      * Delete a product

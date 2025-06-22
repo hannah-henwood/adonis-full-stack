@@ -14,7 +14,7 @@
           <h3 class="card-title mb-0">Edit product</h3>
         </div>
         <div class="card-body">
-          <form action="/products/{{ product.id }}?_method=PUT" method="POST">
+          <form action="/products/{{ product.id }}?_method=PUT" method="POST" enctype="multipart/form-data">
             {{ csrfField() }}
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
@@ -27,6 +27,32 @@
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
               <textarea class="form-control" id="description" name="description" rows="6" required>{{ product.description }}</textarea>
+              
+            <div class="mb-3">
+              <label for="category_id" class="form-label">Category</label>
+              <select class="form-select" id="category_id" name="category_id" required>
+                @each(category in categories)
+                  <option value="{{ category.id }}" {{ category.id == product.category_id ? 'selected' : '' }}>
+                    {{ category.name }}
+                  </option>
+                @endeach
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Current Image</label><br>
+              @if(product.image_path)
+                <img src="/uploads/{{ product.image_path }}" alt="{{ product.name }}" class="img-thumbnail" style="max-width: 200px;">
+                 <input type="hidden" name="existing_image_path" value="{{ product.image_path }}">
+              @else
+                <p>No image uploaded.</p>
+              @endif
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Change Image</label>
+              <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            </div>
             </div>
             <div class="d-flex justify-content-between">
               <button type="submit" class="btn btn-success">
